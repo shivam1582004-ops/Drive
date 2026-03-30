@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LinkedIn Post – CloudVault Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0a0a14;
+    --muted: #5a5a72;
+    --accent: #2563eb;
+    --accent2: #06b6d4;
+    --surface: #f4f6fb;
+    --card: #ffffff;
+    --border: #e2e6f0;
+    --tag-bg: #eff3ff;
+    --tag-color: #2563eb;
+    --green: #10b981;
+    --orange: #f59e0b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--surface);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    color: var(--ink);
+  }
+
+  .wrapper {
+    max-width: 680px;
+    width: 100%;
+  }
+
+  /* ── Header Label ── */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .label::before {
+    content: '';
+    width: 28px; height: 2px;
+    background: var(--accent);
+    display: block;
+  }
+
+  /* ── LinkedIn Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(37,99,235,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  /* ── Card Header ── */
+  .card-header {
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .avatar {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: white;
+    flex-shrink: 0;
+  }
+  .card-header-text {}
+  .card-name {
+    font-weight: 700; font-size: 15px; color: var(--ink);
+    line-height: 1.2;
+  }
+  .card-sub {
+    font-size: 12px; color: var(--muted); margin-top: 2px;
+  }
+  .li-icon {
+    margin-left: auto;
+    width: 32px; height: 32px;
+  }
+  .li-icon svg { width: 32px; height: 32px; }
+
+  /* ── Post Body ── */
+  .post-body {
+    padding: 24px 28px 20px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #1a1a2e;
+  }
+  .post-body p { margin-bottom: 14px; }
+  .post-body p:last-child { margin-bottom: 0; }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .emoji-line { font-size: 15px; }
+
+  /* ── Feature Grid ── */
+  .features {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .feat {
+    background: #f8faff;
+    border: 1px solid #dde5ff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .feat-icon {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .feat-text {
+    line-height: 1.4;
+    color: #2a2a3e;
+  }
+  .feat-text strong {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  /* ── Tech Stack ── */
+  .tech-section {
+    margin: 18px 0;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    border: 1px solid #c7d7ff;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag.green { background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
+  .tag.orange { background: #fffbeb; color: #d97706; border-color: #fde68a; }
+
+  /* ── Learnings ── */
+  .learnings {
+    background: linear-gradient(135deg, #f0f4ff 0%, #f7fbff 100%);
+    border: 1px solid #dde8ff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 18px 0;
+  }
+  .learnings ul {
+    list-style: none;
+    padding: 0;
+  }
+  .learnings ul li {
+    font-size: 13.5px;
+    color: #2a2a3e;
+    padding: 5px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .learnings ul li::before {
+    content: '→';
+    color: var(--accent);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Hashtags ── */
+  .hashtags {
+    padding: 16px 28px 22px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hashtag {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .hashtag:hover { color: #1d4ed8; }
+
+  /* ── Screenshots Section ── */
+  .screenshots-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(37,99,235,0.07);
+    margin-top: 20px;
+  }
+  .screenshots-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .screenshots-header span {
+    background: var(--accent);
+    color: white;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .screenshots-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .screen-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .screen-num {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .screen-info {}
+  .screen-title {
+    font-weight: 700; font-size: 13.5px; color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .screen-desc {
+    font-size: 12.5px; color: var(--muted); line-height: 1.5;
+  }
+  .screen-why {
+    margin-top: 5px;
+    font-size: 11.5px;
+    color: var(--green);
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── Divider ── */
+  .section-divider {
+    margin: 28px 0 20px;
+  }
+
+  @media (max-width: 500px) {
+    .features { grid-template-columns: 1fr; }
+    .post-body { padding: 18px 18px; }
+    .hashtags { padding: 14px 18px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="label">LinkedIn Post Preview</div>
+
+  <!-- Main LinkedIn Card -->
+  <div class="card">
+    <!-- Author Row -->
+    <div class="card-header">
+      <div class="avatar">Y</div>
+      <div class="card-header-text">
+        <div class="card-name">Your Name</div>
+        <div class="card-sub">Full Stack Developer · Node.js · AWS · MongoDB</div>
+      </div>
+      <div class="li-icon">
+        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="34" height="34" rx="6" fill="#0A66C2"/>
+          <path d="M8 13h4v13H8V13zm2-6a2 2 0 110 4 2 2 0 010-4zM14 13h3.8v1.8h.05C18.4 13.7 19.9 13 21.5 13c3.8 0 4.5 2.5 4.5 5.7V26h-4v-6.5c0-1.5 0-3.5-2.1-3.5S18 17.6 18 19.4V26h-4V13z" fill="white"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Post Text -->
+    <div class="post-body">
+      <p class="emoji-line">🚀 <strong>Just shipped something I'm genuinely proud of — a full-stack cloud file storage system built from scratch.</strong></p>
+
+      <p>
+        I've been building backend systems for a while now, but this project hit differently.
+        I wanted to understand what actually happens when you click "Upload" on Google Drive — not just at the surface level,
+        but every single step: auth, file routing, cloud storage, and secure retrieval. So I built my own version of it.
+      </p>
+
+      <p>
+        <span class="highlight">Meet CloudVault</span> — a Google Drive-inspired backend built with
+        <span class="highlight">Node.js, Express, MongoDB, and AWS S3</span>.
+        Users can register, log in, upload files to the cloud, and download them securely — all with proper auth and authorization checks.
+      </p>
+
+      <!-- Feature Grid -->
+      <div class="features">
+        <div class="feat">
+          <div class="feat-icon">🔐</div>
+          <div class="feat-text">
+            <strong>JWT Auth + Cookies</strong>
+            Stateless authentication using signed tokens stored in HTTP cookies.
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">☁️</div>
+          <div class="feat-text">
+            <strong>AWS S3 Storage</strong>
+            Files go directly from Multer to S3 — zero disk usage on the server.
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🔗</div>
+          <div class="feat-text">
+            <strong>Signed Download URLs</strong>
+            Time-limited pre-signed S3 URLs — files expire in 60 seconds after generation.
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🛡️</div>
+          <div class="feat-text">
+            <strong>Authorization Guards</strong>
+            Users can only access their own files — enforced at the database query level.
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🗄️</div>
+          <div class="feat-text">
+            <strong>MongoDB Metadata</strong>
+            File keys, original names, and user references stored in Mongoose schemas.
+          </div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🎨</div>
+          <div class="feat-text">
+            <strong>EJS + Tailwind UI</strong>
+            Server-side rendered views with a clean drag-and-drop upload interface.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="tech-section">
+        <div class="section-label">Tech Stack</div>
+        <div class="tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Mongoose</span>
+          <span class="tag green">AWS S3</span>
+          <span class="tag green">AWS SDK v3</span>
+          <span class="tag green">multer-s3</span>
+          <span class="tag orange">JWT</span>
+          <span class="tag orange">bcrypt</span>
+          <span class="tag">EJS</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">express-validator</span>
+        </div>
+      </div>
+
+      <!-- Learnings -->
+      <div class="learnings">
+        <div class="section-label" style="margin-bottom:10px;">What I actually learned building this 🧠</div>
+        <ul>
+          <li>How multer-s3 streams files directly to S3 without touching local disk — this is huge for scalability</li>
+          <li>Pre-signed URLs are a brilliant pattern: your server never serves the file, S3 does — reduces load massively</li>
+          <li>Separating auth (who are you?) from authorization (is this file yours?) is a subtle but critical design decision</li>
+          <li>Storing only the S3 key in MongoDB — not the full URL — keeps your storage layer swappable</li>
+          <li>Cookie-based JWT feels simple but has real security nuance: httpOnly, expiry, and secret management matter</li>
+        </ul>
+      </div>
+
+      <p>
+        The part I'm most proud of? <span class="highlight">The download flow.</span>
+        When a user hits <code style="background:#f0f4ff;padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;">/download/:key</code>,
+        the server first checks MongoDB to confirm the file belongs to that user, then generates a fresh pre-signed URL from S3
+        and immediately redirects to it. Clean, secure, and the server never touches the file bytes.
+      </p>
+
+      <p>
+        If you're learning backend development, <strong>building a file storage system is one of the best projects you can do.</strong>
+        It forces you to think about auth, cloud services, database design, and security all at once — not in isolation.
+      </p>
+
+      <p>
+        Happy to share the code or walk through any part of the architecture. Drop a comment or DM me! 🙌
+      </p>
+    </div>
+
+    <!-- Hashtags -->
+    <div class="hashtags">
+      <span class="hashtag">#NodeJS</span>
+      <span class="hashtag">#AWS</span>
+      <span class="hashtag">#CloudStorage</span>
+      <span class="hashtag">#MongoDB</span>
+      <span class="hashtag">#BackendDevelopment</span>
+      <span class="hashtag">#JavaScript</span>
+      <span class="hashtag">#ExpressJS</span>
+      <span class="hashtag">#WebDevelopment</span>
+      <span class="hashtag">#OpenSource</span>
+      <span class="hashtag">#100DaysOfCode</span>
+      <span class="hashtag">#LearnInPublic</span>
+      <span class="hashtag">#FullStackDev</span>
+    </div>
+  </div>
+
+  <!-- Screenshots Guide Card -->
+  <div class="section-divider"></div>
+  <div class="label">📸 Screenshots to attach with this post</div>
+
+  <div class="screenshots-card">
+    <div class="screenshots-header">
+      Recommended Screenshots <span>5 shots</span>
+    </div>
+    <div class="screenshots-body">
+
+      <div class="screen-item">
+        <div class="screen-num">1</div>
+        <div class="screen-info">
+          <div class="screen-title">Register Page — /user/register</div>
+          <div class="screen-desc">Clean registration form with username, email, and password fields. Shows the entry point of your app.</div>
+          <div class="screen-why">✓ Shows you built full user onboarding</div>
+        </div>
+      </div>
+
+      <div class="screen-item">
+        <div class="screen-num">2</div>
+        <div class="screen-info">
+          <div class="screen-title">Login Page — /user/login</div>
+          <div class="screen-desc">Login form. Simple, but important to show the auth flow is complete end-to-end.</div>
+          <div class="screen-why">✓ Completes the auth story</div>
+        </div>
+      </div>
+
+      <div class="screen-item">
+        <div class="screen-num">3</div>
+        <div class="screen-info">
+          <div class="screen-title">Home/Dashboard — /home (with some files already uploaded)</div>
+          <div class="screen-desc">The main dashboard showing a list of uploaded files with their names and download icons. This is your money shot — make sure at least 3–4 files are visible so it looks like a real app in use.</div>
+          <div class="screen-why">✓ Most impressive screenshot — shows the full product working</div>
+        </div>
+      </div>
+
+      <div class="screen-item">
+        <div class="screen-num">4</div>
+        <div class="screen-info">
+          <div class="screen-title">Upload Modal popup — (click "Upload Files" button first)</div>
+          <div class="screen-desc">The drag-and-drop file upload modal overlay. This shows the UI polish — the blurred backdrop, the dashed dropzone, the upload button.</div>
+          <div class="screen-why">✓ Shows frontend quality and UX thinking</div>
+        </div>
+      </div>
+
+      <div class="screen-item">
+        <div class="screen-num">5</div>
+        <div class="screen-info">
+          <div class="screen-title">AWS S3 Bucket Console — your bucket with uploaded files</div>
+          <div class="screen-desc">Open your AWS S3 console and screenshot your bucket showing the uploaded files (with the timestamp-prefixed keys like "1714823xxx-filename.pdf"). Blur your bucket name/ARN if you want.</div>
+          <div class="screen-why">✓ Proves real cloud integration — this is what makes people stop scrolling</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -10,7 +10,7 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         trim:true,
-        lowecase:true,
+        lowercase:true,
         unique:true,
         minlength:[13,'email must be at least 13 character']
     },
@@ -23,6 +23,6 @@ const userSchema=new mongoose.Schema({
 })
 
 
-const user=mongoose.model('User',userSchema)//mongoose.model('collection name', schema for this collection)
+const user=mongoose.model('users',userSchema)//mongoose.model('collection name', schema for this collection)
 
  module.exports=user;//require karenge user route me
